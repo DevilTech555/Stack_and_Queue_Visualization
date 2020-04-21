@@ -174,7 +174,7 @@ void about_stack()
     Font(GLUT_BITMAP_9_BY_15, (char *)"  endif", 210, 220);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  top <- top+1", 210, 240);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  stack[top] <- data", 210, 260);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"end procedure", 210, 280);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"end ", 210, 280);
 
     Font(GLUT_BITMAP_9_BY_15, (char *)"begin pop:stack", 440, 160);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  if stack is empty", 440, 180);
@@ -182,10 +182,10 @@ void about_stack()
     Font(GLUT_BITMAP_9_BY_15, (char *)"  endif", 440, 220);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  data <- stack[top]", 440, 240);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  top <- top-1", 440, 260);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"end procedure", 440, 280);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"end ", 440, 280);
 
-    //Font(GLUT_BITMAP_9_BY_15,(char *)"Project by : BINDUSHREE N ( 1SK18CS403 )",230,310);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"Project by : Naveen PM ( 1SK18CS413 )", 230, 310);
+    Font(GLUT_BITMAP_9_BY_15,(char *)"Project by : BINDUSHREE N ( 1SK18CS403 )",230,310);
+    // Font(GLUT_BITMAP_9_BY_15, (char *)"Project by : Naveen PM ( 1SK18CS413 )", 230, 310);
 }
 
 void about_queue()
@@ -201,24 +201,24 @@ void about_queue()
     Font(GLUT_BITMAP_9_BY_15, (char *)"Algorithms : ", 210, 135);
 
     glColor3f(1,1,1);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"procedure add(data)", 210, 160);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"begin add:data", 210, 160);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  if queue is full", 210, 180);
     Font(GLUT_BITMAP_9_BY_15, (char *)"    return overflow", 210, 200);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  endif", 210, 220);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  rear <- rear + 1", 210, 240);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  queue[rear] <- data", 210, 260);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"end procedure", 210, 280);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"end ", 210, 280);
 
-    Font(GLUT_BITMAP_9_BY_15, (char *)"procedure remove", 440, 160);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"  if stack is empty", 440, 180);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"begin remove", 440, 160);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"  if queue is empty", 440, 180);
     Font(GLUT_BITMAP_9_BY_15, (char *)"    return underflow", 440, 200);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  endif", 440, 220);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  data = queue[front]", 440, 240);
     Font(GLUT_BITMAP_9_BY_15, (char *)"  front <- front + 1", 440, 260);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"end procedure", 440, 280);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"end ", 440, 280);
 
-    //Font(GLUT_BITMAP_9_BY_15,(char *)"Project by : BINDUSHREE N ( 1SK18CS403 )",230,310);
-    Font(GLUT_BITMAP_9_BY_15, (char *)"Project by : Naveen PM ( 1SK18CS413 )", 230, 310);
+    Font(GLUT_BITMAP_9_BY_15,(char *)"Project by : BINDUSHREE N ( 1SK18CS403 )",230,310);
+    // Font(GLUT_BITMAP_9_BY_15, (char *)"Project by : Naveen PM ( 1SK18CS413 )", 230, 310);
 }
 
 int Queue::enqueue()
