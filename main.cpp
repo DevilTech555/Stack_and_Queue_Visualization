@@ -1,107 +1,168 @@
 #include <iostream>
 #include <GL/glut.h>
+#include "stackqueue.h"
 #include "button.h"
-#include "search.h"
 
-extern int xPress,yPress;
-extern int array[];
+extern button push_s;
+extern button pop_s;
+extern button add_q;
+extern button remove_q;
+extern Stack s1;
+extern Queue q1;
+extern int of;
+extern int uf;
 
-const int max = 18;
-//Old CRT display resoulution
+int s;
 int X = 640;
-int Y = 510;
-int fontx,fonty;
-int found = 0;
-int place = 0;
-int resetValue = 0;
+int Y = 480;
 
-void lS(){
-    found = place = 0;
-    linerSearch(array,max);
+SQ ss;
+button t1((char *)"Toggle",108, 440, 100, 30);
+
+void init()
+{
+    glClearColor(0.0,0.0,0.0,0.0);
 }
 
-void Random(){
-    for(int r=0;r<max;r++){
-        array[r]=(int)(rand()%(460-100+1)+100);
-    }
-    found = place = 0;
-}
-
-void reset(){
-    found = place = resetValue = 0;
-}
-
-void init(){
-    Random();
-    // glClearColor(0.0f/255.0f, 3.0f/255.0f, 26.0f/255.0f,1.0);
-    glClearColor(0.0f/255.0f, 0.0f/255.0f, 15.0f/255.0f,1.0);
-    CreateButton("Search",lS,512,437,100,30);
-    CreateButton("Random",Random,512,400,100,30);
-    CreateButton("Reset",reset,512,363,100,30);
-    glutSwapBuffers();
-}
-
-
-void display(){
-    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_MULTISAMPLE_ARB);
     glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0,X,Y,0,-1,1);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+    glLoadIdentity();
+    glOrtho(0, X, Y, 0, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
     glColor3f(1,1,1);
-    fontx = 10 + (460 - glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24,(const unsigned char *)"Linear Search")) / 2 ;
-	fonty = 10 + (70+10)/2;
-    Font(GLUT_BITMAP_TIMES_ROMAN_24,(char *)"Linear Search",fontx,fonty);
-    drawFrame();
-    drawButton();
-    drawArray(found,place);
-    glutSwapBuffers();
+    Font(GLUT_BITMAP_9_BY_15, (char *)"To change between stack and queue..!", 228, 460);
+    glColor3f(0.0f / 255.0f, 33.0f / 255.0f, 71.0f / 255.0f);
+    glLineWidth(2);
+    glBegin(GL_LINE_LOOP);
+    glVertex2i(0, 430);
+    glVertex2i(640, 430);
+    glEnd();
+    t1.draw();
+    if(s == 0){
+        q1.rear = -1;
+        q1.front = -1;
+        ss.drawStack();
+        glutSwapBuffers();
+    }else
+    {
+        s1.top = -1;
+        ss.drawQueue();
+        glutSwapBuffers();
+    }
 }
 
-void reshape(int x,int y){
+void reshape(int x, int y)
+{
     X = x;
     Y = y;
-    glViewport(0,0,x,y);
-    glutReshapeWindow(640,510);
+    glViewport(0, 0, (GLsizei)x, (GLsizei)y);
 }
 
-void MouseButton(int button,int state,int x, int y)
+void MouseButton(int button, int state, int x, int y)
 {
-	if (state == GLUT_DOWN) 
-	{
-        xPress = x;
-        yPress = y;
-		switch(button) 
-		{
-		case GLUT_LEFT_BUTTON:
-            ButtonPress(x,y);
-            break;
-		}
-	}
-	else 
-	{
-		switch(button) 
-		{
-		case GLUT_LEFT_BUTTON:;
-            ButtonRelease(x,y);
-			break;
-	}
-	}
-	glutPostRedisplay();
+    glutPostRedisplay();
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        if (t1.insidebutton(x, y)){
+            t1.togglestate();
+        }
+        if (push_s.insidebutton(x,y)){
+            push_s.togglestate();
+        }
+        if (pop_s.insidebutton(x,y)){
+            pop_s.togglestate();
+        }
+        if (add_q.insidebutton(x,y)){
+            add_q.togglestate();
+        }
+        if (remove_q.insidebutton(x,y)){
+            remove_q.togglestate();
+        }
+
+    }
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+    {
+        if (t1.insidebutton(x, y))
+        {
+            t1.togglestate();
+            s=(s==1)?0:1;
+            of = uf = 1;
+        }
+        if (push_s.insidebutton(x,y)){
+            push_s.togglestate();
+            if(s == 0){
+                s1.push();
+            }
+        }
+        if (pop_s.insidebutton(x,y)){
+            pop_s.togglestate();
+            if(s == 0){
+                s1.pop();    
+            }
+        }
+        if (add_q.insidebutton(x,y)){
+            add_q.togglestate();
+            if(s == 1){
+                q1.enqueue();    
+            }
+        }
+        if (remove_q.insidebutton(x,y)){
+            remove_q.togglestate();
+            if(s == 1){
+                q1.dequeue();    
+            }
+        }
+    }
 }
 
-int main(int argc, char ** argv)
+void tasten(unsigned char key, int xmouse, int ymouse)
 {
-    glutInit(&argc,argv);
+    switch (key)
+    {
+    case 32:
+
+        break;
+    case 't':
+        s=(s==1)?0:1;
+        break;
+    case 'i':
+        if(s == 0){
+            s1.push();    
+        }
+        break;
+    case 'd':
+        if(s == 0){
+            s1.pop();    
+        }
+    default:
+        break;
+    }
+    glutPostRedisplay(); //request display() call ASAP
+}
+
+void My_timer_event(int te){
+
+glutPostRedisplay();
+
+glutTimerFunc( 1, My_timer_event, 1);
+}
+
+int main(int argc, char **argv)
+{
+    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-    glutInitWindowPosition(0,0);
-    glutInitWindowSize(X,Y);
-    glutCreateWindow("Searching Visualization");
+    glutInitWindowPosition(0, 0);
+    glutInitWindowSize(X, Y);
+    glutCreateWindow("Stack & Queue Visualization");
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(MouseButton);
+    glutKeyboardFunc(tasten);
+    glutTimerFunc( 1, My_timer_event, 1);
     init();
     glutMainLoop();
     return 0;
