@@ -124,19 +124,22 @@ void tasten(unsigned char key, int xmouse, int ymouse)
     switch (key)
     {
     case 32:
-
-        break;
-    case 't':
         s=(s==1)?0:1;
         break;
-    case 'i':
+    case 13:
         if(s == 0){
             s1.push();    
         }
+        if(s == 1){
+            q1.enqueue();    
+        }
         break;
-    case 'd':
+    case 8:
         if(s == 0){
             s1.pop();    
+        }
+        if(s == 1){
+            q1.dequeue();    
         }
     default:
         break;
