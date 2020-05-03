@@ -1,6 +1,7 @@
 #ifndef STACKQUEUE_H_INCLUDE
 #define STACKQUEUE_H_INCLUDE
-#define MAX 13
+#define SMAX 5
+#define QMAX 6
 
 class SQ
 {
@@ -14,7 +15,7 @@ class Stack
 {
 public:
 	int top;
-	int a[MAX];
+	int a[SMAX];
 	Stack() { top = -1; }
 	int push();
 	int pop();
@@ -23,7 +24,7 @@ public:
 class Queue  
 {  
 public: 
-    int queue[MAX],n,front,rear;
+    int queue[QMAX],n,front,rear;
 	Queue(){ front = -1; rear = -1;}
 	int enqueue();
 	void dequeue();

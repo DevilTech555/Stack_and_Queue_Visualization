@@ -224,7 +224,7 @@ void about_queue()
 int Queue::enqueue()
 {
     int val = (int)(rand() % (500 - 10 + 1) + 10);
-    if (front == 0 && rear == MAX - 1)
+    if (front == 0 && rear == QMAX - 1)
     {
         of = 0;
         return 0;
@@ -236,7 +236,7 @@ int Queue::enqueue()
         queue[rear] = val;
         return 1;
     }
-    else if (rear == MAX - 1 && front != 0)
+    else if (rear == QMAX - 1 && front != 0)
     {
         of = uf = 1;
         rear = 0;
@@ -264,7 +264,7 @@ void Queue::dequeue()
     }
     else
     {
-        if (front == MAX - 1)
+        if (front == QMAX - 1)
         {
             front = 0;
         }
@@ -279,7 +279,7 @@ void Queue::dequeue()
 
 int Stack::push()
 {
-    if (top >= (MAX - 1))
+    if (top >= (SMAX - 1))
     {
         of = 0;
         return 0;
