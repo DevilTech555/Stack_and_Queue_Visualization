@@ -57,9 +57,8 @@ void display()
 
 void reshape(int x, int y)
 {
-    X = x;
-    Y = y;
     glViewport(0, 0, (GLsizei)x, (GLsizei)y);
+    glutReshapeWindow(X,Y);
 }
 
 void MouseButton(int button, int state, int x, int y)
