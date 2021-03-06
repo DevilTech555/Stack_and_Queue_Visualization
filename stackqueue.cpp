@@ -217,8 +217,7 @@ void about_queue()
     Font(GLUT_BITMAP_9_BY_15, (char *)"  front <- front + 1", 440, 260);
     Font(GLUT_BITMAP_9_BY_15, (char *)"end ", 440, 280);
 
-    Font(GLUT_BITMAP_9_BY_15,(char *)"Project by : BINDUSHREE N ( 1SK18CS403 )",230,310);
-    // Font(GLUT_BITMAP_9_BY_15, (char *)"Project by : Naveen PM ( 1SK18CS413 )", 230, 310);
+    Font(GLUT_BITMAP_9_BY_15, (char *)"Project by : Naveen PM ( 1SK18CS413 )", 230, 310);
 }
 
 int Queue::enqueue()
